@@ -60,8 +60,15 @@ func main() {
 
 	vmConfig := createNewConfig(fcSocket)
 	vmConfig.NetworkInterfaces = append(vmConfig.NetworkInterfaces, networkInterface)
+	
+	cmd := sdk.VMCommandBuilder{}.
+		WithBin("firecracker").
+		WithSocketPath(fcSocket).
+		WithStdin(os.Stdin).
+		WithStdout(os.Stdout).
+		WithStderr(os.Stderr).
+		Build(ctx)
 
-	cmd := sdk.VMCommandBuilder{}.WithSocketPath(fcSocket).WithBin("/home/brian/firecracker/firecracker").Build(ctx)
 	m, err := sdk.NewMachine(ctx, vmConfig, sdk.WithProcessRunner(cmd))
 
 	if err != nil {
