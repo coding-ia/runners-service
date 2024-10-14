@@ -60,7 +60,7 @@ func main() {
 
 	vmConfig := createNewConfig(fcSocket)
 	vmConfig.NetworkInterfaces = append(vmConfig.NetworkInterfaces, networkInterface)
-	
+
 	cmd := sdk.VMCommandBuilder{}.
 		WithBin("firecracker").
 		WithSocketPath(fcSocket).
@@ -92,12 +92,9 @@ func main() {
 	}()
 
 	vmIP := m.Cfg.NetworkInterfaces[0].StaticConfiguration.IPConfiguration.IPAddr.IP.String()
+	vmMAC := m.Cfg.NetworkInterfaces[0].StaticConfiguration.MacAddress
+	fmt.Printf("MAC of VM: %v\n", vmMAC)
 	fmt.Printf("IP of VM: %v\n", vmIP)
-
-	for _, vd := range m.Cfg.VsockDevices {
-		fmt.Printf("ID: %s\n", vd.ID)
-		fmt.Printf("Path: %s\n", vd.Path)
-	}
 
 	for {
 	}
