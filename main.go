@@ -54,7 +54,6 @@ func main() {
 			NetworkName: "fcnet",
 			IfName:      "veth0",
 			BinPath:     []string{"/opt/cni/bin"},
-			VMIfName:    "eth0",
 		},
 	}
 
