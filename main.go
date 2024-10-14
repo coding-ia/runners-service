@@ -53,6 +53,7 @@ func main() {
 		CNIConfiguration: &sdk.CNIConfiguration{
 			NetworkName: "fcnet",
 			IfName:      "veth0",
+			BinPath:     []string{"/opt/cni/bin"},
 			VMIfName:    "eth0",
 		},
 	}
