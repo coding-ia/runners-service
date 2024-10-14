@@ -83,4 +83,7 @@ func main() {
 			log.Fatal(err)
 		}
 	}()
+
+	vmIP := m.Cfg.NetworkInterfaces[0].StaticConfiguration.IPConfiguration.IPAddr.IP.String()
+	fmt.Printf("IP of VM: %v\n", vmIP)
 }
