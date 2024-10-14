@@ -86,4 +86,12 @@ func main() {
 
 	vmIP := m.Cfg.NetworkInterfaces[0].StaticConfiguration.IPConfiguration.IPAddr.IP.String()
 	fmt.Printf("IP of VM: %v\n", vmIP)
+
+	for _, vd := range m.Cfg.VsockDevices {
+		fmt.Printf("ID: %s\n", vd.ID)
+		fmt.Printf("Path: %s\n", vd.Path)
+	}
+
+	for {
+	}
 }
