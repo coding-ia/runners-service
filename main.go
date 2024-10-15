@@ -54,7 +54,7 @@ func createNewConfig(socketPath string) sdk.Config {
 			//},
 		},
 		MmdsAddress: net.ParseIP("169.254.169.254"),
-		MmdsVersion: sdk.MMDSv1,
+		MmdsVersion: sdk.MMDSv2,
 	}
 
 	return cfg
