@@ -9,6 +9,14 @@ import (
 	"os"
 )
 
+func boolPtr(b bool) *bool {
+	return &b
+}
+
+func stringPtr(s string) *string {
+	return &s
+}
+
 func createNewConfig(socketPath string) sdk.Config {
 	dir, _ := os.Getwd()
 	fmt.Println(dir)
@@ -19,8 +27,6 @@ func createNewConfig(socketPath string) sdk.Config {
 	smt := false
 
 	driveID := "root"
-	isRootDevice := true
-	isReadOnly := false
 	pathOnHost := "/home/brian/custom/ubuntu-22.04.ext4"
 
 	cfg := sdk.Config{
@@ -35,9 +41,15 @@ func createNewConfig(socketPath string) sdk.Config {
 		Drives: []models.Drive{
 			{
 				DriveID:      &driveID,
-				IsRootDevice: &isRootDevice,
-				IsReadOnly:   &isReadOnly,
+				IsRootDevice: boolPtr(true),
+				IsReadOnly:   boolPtr(true),
 				PathOnHost:   &pathOnHost,
+			},
+			{
+				DriveID:      stringPtr("secondary"),
+				IsRootDevice: boolPtr(false),
+				IsReadOnly:   boolPtr(false),
+				PathOnHost:   stringPtr("/home/brian/custom/overlay.ext4"),
 			},
 		},
 	}
@@ -53,7 +65,7 @@ func main() {
 		CNIConfiguration: &sdk.CNIConfiguration{
 			NetworkName: "fcnet",
 			IfName:      "veth0",
-			BinPath:     []string{"/opt/cni/bin"},
+			BinPath:     []string{"/opt/cni/bin"},ls
 		},
 	}
 
