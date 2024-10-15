@@ -70,6 +70,7 @@ func main() {
 			IfName:      "veth0",
 			BinPath:     []string{"/opt/cni/bin"},
 		},
+		AllowMMDS: true,
 	}
 
 	vmConfig := createNewConfig(fcSocket)
