@@ -6,6 +6,7 @@ import (
 	sdk "github.com/firecracker-microvm/firecracker-go-sdk"
 	"github.com/firecracker-microvm/firecracker-go-sdk/client/models"
 	"log"
+	"net"
 	"os"
 )
 
@@ -52,6 +53,8 @@ func createNewConfig(socketPath string) sdk.Config {
 				PathOnHost:   stringPtr("/home/brian/custom/overlay.ext4"),
 			},
 		},
+		MmdsAddress: net.ParseIP("169.254.169.254"),
+		MmdsVersion: sdk.MMDSv1,
 	}
 
 	return cfg
