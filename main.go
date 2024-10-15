@@ -110,8 +110,8 @@ func main() {
 	fmt.Printf("Metadata IP: %v\n", metaDataIP)
 
 	metadata := map[string]string{
-		"name":              "Brian",
-		"network/interface": "test",
+		"latest/meta-data/name":              "Brian",
+		"latest/meta-data/network/interface": "test",
 	}
 	m.SetMetadata(ctx, metadata)
 
