@@ -82,12 +82,6 @@ func main() {
 
 	m, err := sdk.NewMachine(ctx, vmConfig, sdk.WithProcessRunner(cmd))
 
-	metadata := map[string]string{
-		"name":              "Brian",
-		"network/interface": "test",
-	}
-	m.SetMetadata(ctx, metadata)
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -107,6 +101,12 @@ func main() {
 			log.Fatal(err)
 		}
 	}()
+
+	metadata := map[string]string{
+		"name":              "Brian",
+		"network/interface": "test",
+	}
+	m.SetMetadata(ctx, metadata)
 
 	vmIP := m.Cfg.NetworkInterfaces[0].StaticConfiguration.IPConfiguration.IPAddr.IP.String()
 	vmMAC := m.Cfg.NetworkInterfaces[0].StaticConfiguration.MacAddress
