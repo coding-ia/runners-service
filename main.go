@@ -43,15 +43,15 @@ func createNewConfig(socketPath string) sdk.Config {
 			{
 				DriveID:      &driveID,
 				IsRootDevice: boolPtr(true),
-				IsReadOnly:   boolPtr(true),
+				IsReadOnly:   boolPtr(false),
 				PathOnHost:   &pathOnHost,
 			},
-			{
-				DriveID:      stringPtr("secondary"),
-				IsRootDevice: boolPtr(false),
-				IsReadOnly:   boolPtr(false),
-				PathOnHost:   stringPtr("/home/brian/custom/overlay.ext4"),
-			},
+			//{
+			//	DriveID:      stringPtr("secondary"),
+			//	IsRootDevice: boolPtr(false),
+			//	IsReadOnly:   boolPtr(false),
+			//	PathOnHost:   stringPtr("/home/brian/custom/overlay.ext4"),
+			//},
 		},
 		MmdsAddress: net.ParseIP("169.254.169.254"),
 		MmdsVersion: sdk.MMDSv1,
