@@ -109,10 +109,20 @@ func main() {
 	metaDataIP := m.Cfg.MmdsAddress.String()
 	fmt.Printf("Metadata IP: %v\n", metaDataIP)
 
-	metadata := map[string]string{
-		"latest/meta-data/name":              "Brian",
-		"latest/meta-data/network/interface": "test",
+	//metadata := map[string]string{
+	//	"latest/meta-data/first-name":        "Brian",
+	//	"latest/meta-data/last-name":         "Junker",
+	//	"latest/meta-data/network/interface": "test",
+	//}
+	metadata := map[string]interface{}{
+		"latest": map[string]interface{}{
+			"meta-data": map[string]interface{}{
+				"first-name": "John",
+				"last-name":  "Doe",
+			},
+		},
 	}
+
 	m.SetMetadata(ctx, metadata)
 
 	vmIP := m.Cfg.NetworkInterfaces[0].StaticConfiguration.IPConfiguration.IPAddr.IP.String()
