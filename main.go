@@ -102,6 +102,9 @@ func main() {
 		}
 	}()
 
+	metaDataIP := m.Cfg.MmdsAddress.String()
+	fmt.Printf("Metadata IP: %v\n", metaDataIP)
+
 	metadata := map[string]string{
 		"name":              "Brian",
 		"network/interface": "test",
