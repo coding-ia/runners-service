@@ -94,15 +94,16 @@ func main() {
 	*/
 
 	vmConfig.JailerCfg = &sdk.JailerConfig{
-		ID:           "551e7604-e35c-42b3-b825-416853441234",
-		JailerBinary: "jailer",
-		ExecFile:     "/usr/sbin/firecracker",
-		UID:          intPtr(123),
-		GID:          intPtr(900),
-		NumaNode:     intPtr(0),
-		Stderr:       os.Stderr,
-		Stdin:        os.Stdin,
-		Stdout:       os.Stdout,
+		ID:             "551e7604-e35c-42b3-b825-416853441234",
+		JailerBinary:   "jailer",
+		ExecFile:       "/usr/sbin/firecracker",
+		UID:            intPtr(123),
+		GID:            intPtr(900),
+		NumaNode:       intPtr(0),
+		Stderr:         os.Stderr,
+		Stdin:          os.Stdin,
+		Stdout:         os.Stdout,
+		ChrootStrategy: sdk.NewNaiveChrootStrategy(vmConfig.KernelImagePath),
 	}
 
 	m, err := sdk.NewMachine(c, vmConfig)
