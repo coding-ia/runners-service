@@ -16,6 +16,10 @@ func boolPtr(b bool) *bool {
 	return &b
 }
 
+func intPtr(i int) *int {
+	return &i
+}
+
 func stringPtr(s string) *string {
 	return &s
 }
@@ -79,14 +83,6 @@ func main() {
 	vmConfig := createNewConfig(fcSocket)
 	vmConfig.NetworkInterfaces = append(vmConfig.NetworkInterfaces, networkInterface)
 
-	jailer := sdk.JailerCommandBuilder{}.
-		WithBin("jailer").
-		WithExecFile("/usr/sbin/firecracker").
-		WithUID(123).
-		WithGID(900).
-		WithID("551e7604-e35c-42b3-b825-416853441234").
-		Build(ctx)
-
 	/*
 		cmd := sdk.VMCommandBuilder{}.
 			WithBin("firecracker").
@@ -97,7 +93,18 @@ func main() {
 			Build(ctx)
 	*/
 
-	m, err := sdk.NewMachine(c, vmConfig, sdk.WithProcessRunner(jailer))
+	vmConfig.JailerCfg = &sdk.JailerConfig{
+		ID:           "551e7604-e35c-42b3-b825-416853441234",
+		JailerBinary: "/usr/sbin/jailer",
+		ExecFile:     "/usr/sbin/firecracker",
+		UID:          intPtr(123),
+		GID:          intPtr(900),
+		Stderr:       os.Stderr,
+		Stdin:        os.Stdin,
+		Stdout:       os.Stdout,
+	}
+
+	m, err := sdk.NewMachine(c, vmConfig)
 
 	if err != nil {
 		log.Fatal(err)
