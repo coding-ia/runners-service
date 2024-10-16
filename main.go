@@ -8,6 +8,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"runners-service/internal/hack"
 	"syscall"
 
 	log "github.com/sirupsen/logrus"
@@ -125,6 +126,9 @@ func main() {
 
 	list := m.Handlers.FcInit
 	_ = list
+
+	m.Handlers.FcInit.Remove("fcinit.SetupNetwork")
+	m.Handlers.FcInit.Prepend(hack.CreateNetworkInterfacesHandler)
 
 	if err != nil {
 		log.Fatal(err)
