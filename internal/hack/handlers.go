@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	CreateNetworkInterfacesJailerHandlerName = "fcinit.CreateNetworkInterfacesJailer"
+	CreateNetworkInterfacesJailerHandlerName = "fcinit.CreateNetworkInterfaces"
 )
 
 type JailerMachine struct {
