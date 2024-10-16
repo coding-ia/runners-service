@@ -6,16 +6,17 @@ import (
 )
 
 const (
-	CreateNetworkInterfacesJailerHandlerName = "fcinit.CreateNetworkInterfaces"
+	SetupJailerNetworkHandlerName = "fcinit.SetupNetwork"
 )
 
 type JailerMachine struct {
 	m firecracker.Machine
 }
 
-var CreateNetworkInterfacesHandler = firecracker.Handler{
-	Name: CreateNetworkInterfacesJailerHandlerName,
+var SetupJailerNetworkHandler = firecracker.Handler{
+	Name: SetupJailerNetworkHandlerName,
 	Fn: func(ctx context.Context, m *firecracker.Machine) error {
+
 		return nil
 	},
 }
