@@ -125,9 +125,10 @@ func main() {
 	m, err := sdk.NewMachine(c, vmConfig, machineOpts...)
 
 	list := m.Handlers.FcInit
-	m.Handlers.FcInit.Remove("fcinit.SetupNetwork")
-	m.Handlers.FcInit.Prepend(hack.CreateNetworkInterfacesHandler)
+	handlerList := m.Handlers.FcInit.Remove("fcinit.SetupNetwork")
+	handlerList.Prepend(hack.CreateNetworkInterfacesHandler)
 
+	m.Handlers.FcInit = handlerList
 	list = m.Handlers.FcInit
 	_ = list
 
