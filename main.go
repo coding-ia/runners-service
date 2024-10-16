@@ -76,11 +76,6 @@ func main() {
 			NetworkName: "fcnet",
 			IfName:      "veth0",
 			BinPath:     []string{"/opt/cni/bin"},
-			Args: [][2]string{
-				{"TC_REDIRECT_TAP_NAME", "tap0"},
-				{"TC_REDIRECT_TAP_UID", "123"},
-				{"TC_REDIRECT_TAP_GID", "900"},
-			},
 		},
 		AllowMMDS: true,
 	}
@@ -113,7 +108,7 @@ func main() {
 		ChrootBaseDir:  "/srv/jailer",
 	}
 
-	vmConfig.NetNS = "/var/run/netns/my_network"
+	vmConfig.NetNS = "/var/run/netns/"
 	vmConfig.VMID = "551e7604-e35c-42b3-b825-416853441234"
 
 	m, err := sdk.NewMachine(c, vmConfig)
