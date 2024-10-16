@@ -123,6 +123,9 @@ func main() {
 
 	m, err := sdk.NewMachine(c, vmConfig, machineOpts...)
 
+	list := m.Handlers.FcInit
+	_ = list
+
 	if err != nil {
 		log.Fatal(err)
 	}
