@@ -62,7 +62,7 @@ func createNewConfig(socketPath string) sdk.Config {
 
 func main() {
 	fcSocket := "/tmp/firecracker.socket"
-	ctx := context.TODO()
+	ctx := context.Background()
 
 	networkInterface := sdk.NetworkInterface{
 		CNIConfiguration: &sdk.CNIConfiguration{
