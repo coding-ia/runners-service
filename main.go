@@ -33,7 +33,6 @@ func createNewConfig(socketPath string) sdk.Config {
 	pathOnHost := "/home/brian/custom/ubuntu-22.04.ext4"
 
 	cfg := sdk.Config{
-		SocketPath:      socketPath,
 		KernelArgs:      "console=ttyS0 loglevel=3 reboot=k panic=1 pci=off selinux=0",
 		KernelImagePath: kernelImage,
 		MachineCfg: models.MachineConfiguration{
