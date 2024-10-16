@@ -80,15 +80,25 @@ func main() {
 	vmConfig := createNewConfig(fcSocket)
 	vmConfig.NetworkInterfaces = append(vmConfig.NetworkInterfaces, networkInterface)
 
-	cmd := sdk.VMCommandBuilder{}.
-		WithBin("firecracker").
-		WithSocketPath(fcSocket).
-		WithStdin(os.Stdin).
-		WithStdout(os.Stdout).
-		WithStderr(os.Stderr).
+	jailer := sdk.JailerCommandBuilder{}.
+		WithBin("jailer").
+		WithExecFile("firecracker").
+		WithUID(123).
+		WithGID(100).
+		WithID("551e7604-e35c-42b3-b825-416853441234").
 		Build(ctx)
 
-	m, err := sdk.NewMachine(c, vmConfig, sdk.WithProcessRunner(cmd))
+	/*
+		cmd := sdk.VMCommandBuilder{}.
+			WithBin("firecracker").
+			WithSocketPath(fcSocket).
+			WithStdin(os.Stdin).
+			WithStdout(os.Stdout).
+			WithStderr(os.Stderr).
+			Build(ctx)
+	*/
+
+	m, err := sdk.NewMachine(c, vmConfig, sdk.WithProcessRunner(jailer))
 
 	if err != nil {
 		log.Fatal(err)
