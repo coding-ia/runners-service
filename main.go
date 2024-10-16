@@ -77,6 +77,11 @@ func main() {
 			NetworkName: "fcnet",
 			IfName:      "veth0",
 			BinPath:     []string{"/opt/cni/bin"},
+			Args: [][2]string{
+				{"TC_REDIRECT_TAP_NAME", "tap0"},
+				{"TC_REDIRECT_TAP_UID", "123"},
+				{"TC_REDIRECT_TAP_GID", "900"},
+			},
 		},
 		AllowMMDS: true,
 	}
