@@ -109,6 +109,9 @@ func main() {
 		ChrootBaseDir:  "/srv/jailer",
 	}
 
+	vmConfig.Seccomp = sdk.SeccompConfig{
+		Enabled: false,
+	}
 	vmConfig.NetNS = "/var/run/netns/551e7604-e35c-42b3-b825-416853441234"
 	vmConfig.VMID = "551e7604-e35c-42b3-b825-416853441234"
 
