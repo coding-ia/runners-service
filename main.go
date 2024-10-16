@@ -8,6 +8,8 @@ import (
 	"log"
 	"net"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 func boolPtr(b bool) *bool {
@@ -62,7 +64,9 @@ func createNewConfig(socketPath string) sdk.Config {
 
 func main() {
 	fcSocket := "/tmp/firecracker.socket"
-	ctx := context.Background()
+	c := context.Background()
+	ctx, cancel := context.WithCancel(c)
+	defer cancel()
 
 	networkInterface := sdk.NetworkInterface{
 		CNIConfiguration: &sdk.CNIConfiguration{
@@ -130,6 +134,13 @@ func main() {
 	fmt.Printf("MAC of VM: %v\n", vmMAC)
 	fmt.Printf("IP of VM: %v\n", vmIP)
 
-	for {
-	}
+	sigCh := make(chan os.Signal, 1)
+	signal.Notify(sigCh, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		s := <-sigCh
+		log.Printf("got signal %v, attempting graceful shutdown", s)
+		cancel()
+	}()
+
+	<-ctx.Done()
 }
