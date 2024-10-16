@@ -108,6 +108,8 @@ func main() {
 		ChrootBaseDir:  "/srv/jailer",
 	}
 
+	vmConfig.NetNS = "/var/run/netns/my_netns"
+
 	m, err := sdk.NewMachine(c, vmConfig)
 
 	if err != nil {
