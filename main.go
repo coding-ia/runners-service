@@ -5,11 +5,12 @@ import (
 	"fmt"
 	sdk "github.com/firecracker-microvm/firecracker-go-sdk"
 	"github.com/firecracker-microvm/firecracker-go-sdk/client/models"
-	"log"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func boolPtr(b bool) *bool {
@@ -108,10 +109,19 @@ func main() {
 		ChrootBaseDir:  "/srv/jailer",
 	}
 
-	//vmConfig.NetNS = "/run/netns/551e7604-e35c-42b3-b825-416853441234"
+	//vmConfig.NetNS = "/var/run/netns/551e7604-e35c-42b3-b825-416853441234"
 	vmConfig.VMID = "551e7604-e35c-42b3-b825-416853441234"
 
-	m, err := sdk.NewMachine(c, vmConfig)
+	logger := log.New()
+
+	log.SetLevel(log.DebugLevel)
+	logger.SetLevel(log.DebugLevel)
+
+	machineOpts := []sdk.Opt{
+		sdk.WithLogger(log.NewEntry(logger)),
+	}
+
+	m, err := sdk.NewMachine(c, vmConfig, machineOpts...)
 
 	if err != nil {
 		log.Fatal(err)
