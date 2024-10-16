@@ -83,9 +83,9 @@ func main() {
 	cmd := sdk.VMCommandBuilder{}.
 		WithBin("firecracker").
 		WithSocketPath(fcSocket).
-		//WithStdin(os.Stdin).
-		//WithStdout(os.Stdout).
-		//WithStderr(os.Stderr).
+		WithStdin(os.Stdin).
+		WithStdout(os.Stdout).
+		WithStderr(os.Stderr).
 		Build(ctx)
 
 	m, err := sdk.NewMachine(c, vmConfig, sdk.WithProcessRunner(cmd))
