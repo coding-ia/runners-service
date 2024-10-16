@@ -88,7 +88,7 @@ func main() {
 		//WithStderr(os.Stderr).
 		Build(ctx)
 
-	m, err := sdk.NewMachine(ctx, vmConfig, sdk.WithProcessRunner(cmd))
+	m, err := sdk.NewMachine(c, vmConfig, sdk.WithProcessRunner(cmd))
 
 	if err != nil {
 		log.Fatal(err)
@@ -99,16 +99,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer func() {
-		if err := m.StopVMM(); err != nil {
-			log.Fatal(err)
-		}
-	}()
-	defer func() {
-		if err := m.Shutdown(ctx); err != nil {
-			log.Fatal(err)
-		}
-	}()
 
 	metaDataIP := m.Cfg.MmdsAddress.String()
 	fmt.Printf("Metadata IP: %v\n", metaDataIP)
@@ -148,6 +138,12 @@ func main() {
 	go func() {
 		s := <-sigCh
 		log.Printf("got signal %v, attempting graceful shutdown", s)
+		if err := m.StopVMM(); err != nil {
+			log.Fatal(err)
+		}
+		if err := m.Shutdown(ctx); err != nil {
+			log.Fatal(err)
+		}
 		cancel()
 	}()
 
