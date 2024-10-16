@@ -134,6 +134,15 @@ func main() {
 	fmt.Printf("MAC of VM: %v\n", vmMAC)
 	fmt.Printf("IP of VM: %v\n", vmIP)
 
+	go func() {
+		if err := m.Wait(ctx); err != nil {
+			fmt.Printf("VM exited with error: %v\n", err)
+		} else {
+			fmt.Println("VM has exited successfully.")
+		}
+		// Trigger additional logic here if needed when VM exits
+	}()
+
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, os.Interrupt, syscall.SIGTERM)
 	go func() {
