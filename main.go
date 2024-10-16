@@ -8,7 +8,6 @@ import (
 	"net"
 	"os"
 	"os/signal"
-	"runners-service/internal/hack"
 	"syscall"
 
 	log "github.com/sirupsen/logrus"
@@ -123,9 +122,6 @@ func main() {
 	}
 
 	m, err := sdk.NewMachine(c, vmConfig, machineOpts...)
-
-	// Replace network setup with one for the jailer
-	m.Handlers.FcInit = m.Handlers.FcInit.Swap(hack.SetupJailerNetworkHandler)
 
 	if err != nil {
 		log.Fatal(err)
