@@ -82,7 +82,7 @@ func main() {
 
 	jailer := sdk.JailerCommandBuilder{}.
 		WithBin("jailer").
-		WithExecFile("firecracker").
+		WithExecFile("/usr/sbin/firecracker").
 		WithUID(123).
 		WithGID(900).
 		WithID("551e7604-e35c-42b3-b825-416853441234").
