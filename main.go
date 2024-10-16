@@ -141,9 +141,9 @@ func main() {
 		if err := m.StopVMM(); err != nil {
 			log.Fatal(err)
 		}
-		if err := m.Shutdown(ctx); err != nil {
-			log.Fatal(err)
-		}
+		//if err := m.Shutdown(ctx); err != nil {
+		//	log.Fatal(err)
+		//}
 		cancel()
 	}()
 
