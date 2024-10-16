@@ -105,6 +105,7 @@ func main() {
 		Stdout:         os.Stdout,
 		ChrootStrategy: sdk.NewNaiveChrootStrategy(vmConfig.KernelImagePath),
 		CgroupVersion:  "1",
+		ChrootBaseDir:  "/srv/jailer",
 	}
 
 	m, err := sdk.NewMachine(c, vmConfig)
