@@ -84,7 +84,7 @@ func main() {
 		WithBin("jailer").
 		WithExecFile("firecracker").
 		WithUID(123).
-		WithGID(100).
+		WithGID(900).
 		WithID("551e7604-e35c-42b3-b825-416853441234").
 		Build(ctx)
 
