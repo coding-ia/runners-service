@@ -5,6 +5,7 @@ import (
 	"fmt"
 	sdk "github.com/firecracker-microvm/firecracker-go-sdk"
 	"github.com/firecracker-microvm/firecracker-go-sdk/client/models"
+	"github.com/google/uuid"
 	"net"
 	"os"
 	"os/signal"
@@ -25,7 +26,7 @@ func stringPtr(s string) *string {
 	return &s
 }
 
-func createNewConfig(socketPath string) sdk.Config {
+func createNewConfig() sdk.Config {
 	dir, _ := os.Getwd()
 	fmt.Println(dir)
 	kernelImage := "/home/brian/custom/vmlinux-5.10.223"
@@ -67,7 +68,6 @@ func createNewConfig(socketPath string) sdk.Config {
 }
 
 func main() {
-	fcSocket := "/tmp/firecracker.socket"
 	c := context.Background()
 	ctx, cancel := context.WithCancel(c)
 	defer cancel()
@@ -81,7 +81,7 @@ func main() {
 		AllowMMDS: true,
 	}
 
-	vmConfig := createNewConfig(fcSocket)
+	vmConfig := createNewConfig()
 	vmConfig.NetworkInterfaces = append(vmConfig.NetworkInterfaces, networkInterface)
 
 	/*
@@ -94,8 +94,10 @@ func main() {
 			Build(ctx)
 	*/
 
+	machineId := uuid.New().String()
+
 	vmConfig.JailerCfg = &sdk.JailerConfig{
-		ID:             "551e7604-e35c-42b3-b825-416853441234",
+		ID:             machineId,
 		JailerBinary:   "jailer",
 		ExecFile:       "/usr/sbin/firecracker",
 		UID:            intPtr(123),
@@ -109,8 +111,8 @@ func main() {
 		ChrootBaseDir:  "/srv/jailer",
 	}
 
-	vmConfig.NetNS = "/var/run/netns/551e7604-e35c-42b3-b825-416853441234"
-	vmConfig.VMID = "551e7604-e35c-42b3-b825-416853441234"
+	vmConfig.VMID = machineId
+	vmConfig.NetNS = fmt.Sprintf("/var/run/netns/%s", machineId)
 
 	logger := log.New()
 
