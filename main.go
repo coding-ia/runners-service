@@ -114,16 +114,17 @@ func main() {
 
 	machineId := uuid.New().String()
 
+	nullio, err := os.Open("/dev/null")
 	vmConfig.JailerCfg = &sdk.JailerConfig{
-		ID:           machineId,
-		JailerBinary: "jailer",
-		ExecFile:     "/usr/sbin/firecracker",
-		UID:          intPtr(123),
-		GID:          intPtr(900),
-		NumaNode:     intPtr(0),
-		//Stderr:         os.Stderr,
-		//Stdin:          os.Stdin,
-		//Stdout:         os.Stdout,
+		ID:             machineId,
+		JailerBinary:   "jailer",
+		ExecFile:       "/usr/sbin/firecracker",
+		UID:            intPtr(123),
+		GID:            intPtr(900),
+		NumaNode:       intPtr(0),
+		Stderr:         nullio,
+		Stdin:          nullio,
+		Stdout:         nullio,
 		ChrootStrategy: sdk.NewNaiveChrootStrategy(vmConfig.KernelImagePath),
 		CgroupVersion:  "2",
 		ChrootBaseDir:  "/srv/jailer",
