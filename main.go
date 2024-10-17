@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	sdk "github.com/firecracker-microvm/firecracker-go-sdk"
 	"github.com/firecracker-microvm/firecracker-go-sdk/client/models"
@@ -13,6 +14,22 @@ import (
 
 	log "github.com/sirupsen/logrus"
 )
+
+type PrivateKey struct {
+	OpensshKey string `json:"openssh-key"`
+}
+
+type Metadata struct {
+	PrivateKeys map[string]PrivateKey `json:"private-keys"`
+}
+
+type Latest struct {
+	Metadata Metadata `json:"metadata"`
+}
+
+type Data struct {
+	Latest Latest `json:"latest"`
+}
 
 func boolPtr(b bool) *bool {
 	return &b
@@ -136,16 +153,10 @@ func main() {
 	metaDataIP := m.Cfg.MmdsAddress.String()
 	fmt.Printf("Metadata IP: %v\n", metaDataIP)
 
-	metadata := map[string]interface{}{
-		"latest": map[string]interface{}{
-			"meta-data": map[string]interface{}{
-				"first-name": "John",
-				"last-name":  "Doe",
-			},
-		},
+	err = generateMetaData(c, m, "testkey")
+	if err != nil {
+		log.Fatal(err)
 	}
-
-	m.SetMetadata(ctx, metadata)
 
 	vmIP := m.Cfg.NetworkInterfaces[0].StaticConfiguration.IPConfiguration.IPAddr.IP.String()
 	vmMAC := m.Cfg.NetworkInterfaces[0].StaticConfiguration.MacAddress
@@ -176,4 +187,33 @@ func main() {
 	}()
 
 	<-ctx.Done()
+}
+
+func generateMetaData(ctx context.Context, m *sdk.Machine, key string) error {
+	data := Data{
+		Latest: Latest{
+			Metadata: Metadata{
+				PrivateKeys: map[string]PrivateKey{
+					"0": {
+						OpensshKey: "my-ssh-key-data",
+					},
+				},
+			},
+		},
+	}
+
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	var metadata interface{}
+	err = json.Unmarshal(jsonData, &metadata)
+	if err != nil {
+		return err
+	}
+
+	m.SetMetadata(ctx, metadata)
+
+	return nil
 }
