@@ -165,7 +165,7 @@ func main() {
 	opensshKey, _ := ssh_gen.GenerateMachineKeys(idrsaPath)
 
 	metaDataIP := m.Cfg.MmdsAddress.String()
-	log.Info("Metadata IP: %v\n", metaDataIP)
+	log.Printf("Metadata IP: %v\n", metaDataIP)
 
 	err = generateMetaData(c, m, opensshKey)
 	if err != nil {
@@ -174,8 +174,8 @@ func main() {
 
 	vmIP := m.Cfg.NetworkInterfaces[0].StaticConfiguration.IPConfiguration.IPAddr.IP.String()
 	vmMAC := m.Cfg.NetworkInterfaces[0].StaticConfiguration.MacAddress
-	log.Info("MAC of VM: %v\n", vmMAC)
-	log.Info("IP of VM: %v\n", vmIP)
+	log.Printf("MAC of VM: %v\n", vmMAC)
+	log.Printf("IP of VM: %v\n", vmIP)
 
 	go func() {
 		if err := m.Wait(ctx); err != nil {
