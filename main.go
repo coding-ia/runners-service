@@ -124,11 +124,9 @@ func main() {
 	}
 
 	m, err := sdk.NewMachine(c, vmConfig, machineOpts...)
-
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer os.Remove(fcSocket)
 
 	err = m.Start(ctx)
 	if err != nil {
