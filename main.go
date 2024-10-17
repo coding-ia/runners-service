@@ -151,7 +151,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	idrsaPath := fmt.Sprintf("%s/firecracker/%s/root/idrsa", m.Cfg.JailerCfg.ChrootBaseDir, vmConfig.VMID)
+	idrsaPath := fmt.Sprintf("%s/firecracker/%s/root/id_rsa", m.Cfg.JailerCfg.ChrootBaseDir, vmConfig.VMID)
 	opensshKey, _ := ssh_gen.GenerateMachineKeys(idrsaPath)
 
 	metaDataIP := m.Cfg.MmdsAddress.String()

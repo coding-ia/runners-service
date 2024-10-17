@@ -45,7 +45,7 @@ func generatePrivateKeyPEM(key *rsa.PrivateKey) *pem.Block {
 }
 
 func writePEMBlock(filename string, pemBlock *pem.Block) error {
-	file, err := os.Create(filename)
+	file, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
 		return err
 	}
