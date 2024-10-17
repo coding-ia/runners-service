@@ -29,14 +29,14 @@ func stringPtr(s string) *string {
 func createNewConfig() sdk.Config {
 	dir, _ := os.Getwd()
 	fmt.Println(dir)
-	kernelImage := "/home/brian/custom/vmlinux-5.10.223"
+	kernelImage := "/home/brian/custom-alpine/vmlinux-6.1.102"
 
 	var vcpuCount int64 = 1
 	var memSizeMib int64 = 1024
 	smt := false
 
 	driveID := "root"
-	pathOnHost := "/home/brian/custom/ubuntu-22.04.ext4"
+	pathOnHost := "/home/brian/custom-alpine/alpine.ext4"
 
 	cfg := sdk.Config{
 		KernelArgs:      "console=ttyS0 loglevel=3 reboot=k panic=1 pci=off selinux=0",
