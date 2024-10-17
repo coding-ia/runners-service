@@ -181,6 +181,11 @@ func main() {
 		if err := m.Wait(ctx); err != nil {
 			log.Warn(err)
 		} else {
+			cleanup := fmt.Sprintf("%s/firecracker/%s", m.Cfg.JailerCfg.ChrootBaseDir, vmConfig.VMID)
+			err := os.RemoveAll(cleanup)
+			if err != nil {
+				log.Warn(err)
+			}
 			log.Info("VM has exited successfully.")
 		}
 		// Trigger additional logic here if needed when VM exits
