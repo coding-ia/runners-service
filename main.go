@@ -179,9 +179,9 @@ func main() {
 
 	go func() {
 		if err := m.Wait(ctx); err != nil {
-			fmt.Printf("VM exited with error: %v\n", err)
+			log.Warn(err)
 		} else {
-			fmt.Println("VM has exited successfully.")
+			log.Info("VM has exited successfully.")
 		}
 		// Trigger additional logic here if needed when VM exits
 	}()
