@@ -129,6 +129,15 @@ func main() {
 		ChrootBaseDir:  "/srv/jailer",
 	}
 
+	// Ensure the KernelImagePath and each configured drive path files are owned by the jailer
+	if vmConfig.JailerCfg != nil {
+		changeFileOwner(vmConfig.KernelImagePath, *vmConfig.JailerCfg.UID, *vmConfig.JailerCfg.GID)
+
+		for _, drive := range vmConfig.Drives {
+			changeFileOwner(*drive.PathOnHost, *vmConfig.JailerCfg.UID, *vmConfig.JailerCfg.GID)
+		}
+	}
+
 	vmConfig.VMID = machineId
 	vmConfig.NetNS = fmt.Sprintf("/var/run/netns/%s", machineId)
 
@@ -220,4 +229,8 @@ func generateMetaData(ctx context.Context, m *sdk.Machine, key string) error {
 	m.SetMetadata(ctx, metadata)
 
 	return nil
+}
+
+func changeFileOwner(filename string, uid int, gid int) error {
+	return os.Chown(filename, uid, gid)
 }
