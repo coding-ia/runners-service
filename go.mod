@@ -3,9 +3,11 @@ module runners-service
 go 1.21
 
 require (
-	github.com/firecracker-microvm/firecracker-go-sdk v1.0.1-0.20241009020759-a2a2982ac588
+	github.com/firecracker-microvm/firecracker-go-sdk v0.0.0-20241009020759-a2a2982ac588
 	github.com/sirupsen/logrus v1.9.3
 )
+
+replace github.com/firecracker-microvm/firecracker-go-sdk => github.com/coding-ia/firecracker-go-sdk v0.0.0-20241009020759-a2a2982ac588
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect

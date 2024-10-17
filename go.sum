@@ -16,6 +16,7 @@ github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 h1:DklsrG3d
 github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2/go.mod h1:WaHUgvxTVq04UNunO+XhnAqY/wQc+bxr74GqbsZ/Jqw=
 github.com/buger/jsonparser v1.1.1 h1:2PnMjfWD7wBILjqQbt530v576A/cAbQvEW9gGIpYMUs=
 github.com/buger/jsonparser v1.1.1/go.mod h1:6RYKKt7H4d4+iWqouImQ9R2FZql3VbhNgx27UK13J/0=
+github.com/coding-ia/firecracker-go-sdk v0.0.0-20241009020759-a2a2982ac588/go.mod h1:nCkXUYyLr13R+3A5fapR63+1oc6LYbieEuKi3McEaPU=
 github.com/containerd/cgroups/v3 v3.0.2 h1:f5WFqIVSgo5IZmtTT3qVBo6TzI1ON6sycSBKkymb9L0=
 github.com/containerd/cgroups/v3 v3.0.2/go.mod h1:JUgITrzdFqp42uI2ryGA+ge0ap/nxzYgkGmIcetmErE=
 github.com/containerd/errdefs v0.1.0 h1:m0wCRBiu1WJT/Fr+iOoQHMQS/eP5myQ8lCv4Dz5ZURM=
@@ -45,6 +46,7 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/docker/go-units v0.4.0 h1:3uh0PgVws3nIA0Q+MwDC8yjEPf9zjRfZZWXZYDct3Tw=
 github.com/docker/go-units v0.4.0/go.mod h1:fgPhTUdO+D/Jk86RDLlptpiXQzgHJF7gydDDbaIK4Dk=
+github.com/firecracker-microvm/firecracker-go-sdk v0.0.0-20241009020759-a2a2982ac588/go.mod h1:nCkXUYyLr13R+3A5fapR63+1oc6LYbieEuKi3McEaPU=
 github.com/firecracker-microvm/firecracker-go-sdk v1.0.1-0.20241009020759-a2a2982ac588 h1:IeL2xHabxGIKXrZjaEbBPRE7431FkZfIEd/jpK5VjiU=
 github.com/firecracker-microvm/firecracker-go-sdk v1.0.1-0.20241009020759-a2a2982ac588/go.mod h1:nCkXUYyLr13R+3A5fapR63+1oc6LYbieEuKi3McEaPU=
 github.com/go-logr/logr v1.4.1 h1:pKouT5E8xu9zeFC39JXRDukb6JFQPXM5p5I91188VAQ=
