@@ -24,7 +24,7 @@ type Metadata struct {
 }
 
 type Latest struct {
-	Metadata Metadata `json:"metadata"`
+	Metadata Metadata `json:"meta-data"`
 }
 
 type Data struct {
