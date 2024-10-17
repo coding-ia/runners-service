@@ -10,6 +10,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	ssh_gen "runners-service/internal"
 	"syscall"
 
 	log "github.com/sirupsen/logrus"
@@ -145,6 +146,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	idrsaPath := fmt.Sprintf("%s/firecracker/%s", m.Cfg.JailerCfg.ChrootBaseDir, vmConfig.VMID)
+	opensshKey, _ := ssh_gen.GenerateMachineKeys(idrsaPath)
 	err = m.Start(ctx)
 	if err != nil {
 		log.Fatal(err)
@@ -153,7 +156,7 @@ func main() {
 	metaDataIP := m.Cfg.MmdsAddress.String()
 	fmt.Printf("Metadata IP: %v\n", metaDataIP)
 
-	err = generateMetaData(c, m, "testkey")
+	err = generateMetaData(c, m, opensshKey)
 	if err != nil {
 		log.Fatal(err)
 	}
