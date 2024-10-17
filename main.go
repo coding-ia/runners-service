@@ -15,12 +15,12 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type PrivateKey struct {
+type PublicKey struct {
 	OpensshKey string `json:"openssh-key"`
 }
 
 type Metadata struct {
-	PrivateKeys map[string]PrivateKey `json:"private-keys"`
+	PublicKeys map[string]PublicKey `json:"public-keys"`
 }
 
 type Latest struct {
@@ -193,9 +193,9 @@ func generateMetaData(ctx context.Context, m *sdk.Machine, key string) error {
 	data := Data{
 		Latest: Latest{
 			Metadata: Metadata{
-				PrivateKeys: map[string]PrivateKey{
+				PublicKeys: map[string]PublicKey{
 					"0": {
-						OpensshKey: "my-ssh-key-data",
+						OpensshKey: key,
 					},
 				},
 			},
